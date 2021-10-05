@@ -1,1 +1,5 @@
+
+## We don't have to add the dist folder in the repo
+dist
+## node_modules have to be ignored
 node_modules
