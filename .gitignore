@@ -3,3 +3,5 @@
 dist
 ## node_modules have to be ignored
 node_modules
+## Don't add this
+yarn.lock

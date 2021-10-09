@@ -6,6 +6,10 @@
   "author": "MagdielPm <magdiel_joab@hotmail.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "nodemon src/index.js --exec babel-node",
+    "migrate": "npx sequelize-cli db:migrate",
+    "down-migrate": "npx sequelize-cli db:migrate:undo",
+    "add-seeds": "npx sequelize-cli db:seed:all",
     "start": "node dist/index.js",
     "build": "babel src --out-dir dist",
     "test": "jest --runInBand"
@@ -14,9 +18,16 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
+    "@babel/node": "^7.15.8",
+    "@babel/polyfill": "^7.12.1",
     "express": "^4.17.1",
     "jest": "^27.2.4",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.13",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^6.1.6"
   },
   "dependencies": {
