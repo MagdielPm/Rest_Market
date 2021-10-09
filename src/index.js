@@ -1,5 +1,9 @@
-import product from "./api/product/product";
+import app from "./app";
+import "@babel/polyfill";
 
-product.listen(3000, () => {
-  console.log("Running at localhost:3000");
-});
+async function main() {
+  await app.listen(3000);
+  console.log("Server running in port 3000 ✅");
+}
+
+main();
