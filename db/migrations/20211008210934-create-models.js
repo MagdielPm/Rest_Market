@@ -20,6 +20,12 @@ module.exports = {
       job: {
         type: Sequelize.STRING,
       },
+      state: {
+        type: Sequelize.STRING,
+      },
+      city: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -44,6 +50,12 @@ module.exports = {
         type: Sequelize.STRING,
       },
       email: {
+        type: Sequelize.STRING,
+      },
+      state: {
+        type: Sequelize.STRING,
+      },
+      city: {
         type: Sequelize.STRING,
       },
       createdAt: {
