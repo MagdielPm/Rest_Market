@@ -3,6 +3,7 @@ import morgan from "morgan";
 
 // Import all routes here below 👇🏽
 import employeerRoutes from "./routes/customers";
+import productRoutes from "./routes/product";
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use(json());
 // Remember, the endpoins have to be in plural
 app.use("/api/employees", employeerRoutes);
 app.use("/api/customers", employeerRoutes);
+app.use("/api/products", productRoutes);
 
 export default app;
