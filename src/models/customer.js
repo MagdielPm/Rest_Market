@@ -1,8 +1,8 @@
 import Sequelize from "sequelize";
 import { sequelize } from "../connection/database";
 
-//Create the model for Employees
-const Employe = sequelize.define("Employees", {
+//Create the model for Customers
+const Customer = sequelize.define("Customers", {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -18,15 +18,6 @@ const Employe = sequelize.define("Employees", {
   email: {
     type: Sequelize.STRING,
   },
-  job: {
-    type: Sequelize.STRING,
-  },
-  state: {
-    type: Sequelize.STRING,
-  },
-  city: {
-    type: Sequelize.STRING,
-  },
 });
 
-export default Employe;
+export default Customer;
