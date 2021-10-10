@@ -57,7 +57,7 @@ export async function getAllProducts(req, res) {
 export async function getProductById(req, res) {
     try {
         const { id } = req.params;
-        const product = await Customer.findOne({
+        const product = await Product.findOne({
             where: {
                 id: id,
             },

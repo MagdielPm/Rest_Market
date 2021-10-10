@@ -13,7 +13,7 @@ module.exports = {
     */
     
     await queryInterface.bulkInsert(
-      "Product", 
+      "Products", 
       [
         {
           name: "Colgate Luminous White 125 ml",
@@ -72,6 +72,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete("Product", null, {});
+    await queryInterface.bulkDelete("Products", null, {});
   }
 };
