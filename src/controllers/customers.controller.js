@@ -2,16 +2,18 @@ import Customer from "../models/customer";
 
 //Create new Customer with POST
 export async function createNewCustomer(req, res) {
-  const { fullName, numberPhone, email } = req.body;
+  const { fullName, numberPhone, email, state, city } = req.body;
   try {
     let newCustomer = await Customer.create(
       {
         fullName: fullName,
         numberPhone: numberPhone,
         email: email,
+        state: state,
+        city: city,
       },
       {
-        fields: ["fullName", "numberPhone", "email"],
+        fields: ["fullName", "numberPhone", "email", "state", "city"],
       }
     );
 
@@ -103,10 +105,10 @@ export async function deleteCustomerById(req, res) {
 //Update an Customer by id with PUT
 export async function updateACustomer(req, res) {
   const { id } = req.params;
-  const { fullName, numberPhone, email } = req.body;
+  const { fullName, numberPhone, email, state, city } = req.body;
   try {
-    let customers = await customer.findAll({
-      attributes: ["fullName", "numberPhone", "email"],
+    let customers = await Customer.findAll({
+      attributes: ["fullName", "numberPhone", "email", "state", "city"],
       where: {
         id: id,
       },
@@ -119,6 +121,8 @@ export async function updateACustomer(req, res) {
           fullName: fullName,
           numberPhone: numberPhone,
           email: email,
+          state: state,
+          city: city,
         });
       });
     }
