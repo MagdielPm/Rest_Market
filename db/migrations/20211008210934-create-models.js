@@ -68,32 +68,6 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable("Products", {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      productName: {
-        type: Sequelize.STRING,
-      },
-      productDescription: {
-        type: Sequelize.STRING,
-      },
-      productPrice: {
-        type: Sequelize.STRING,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-    });
-
     await queryInterface.createTable("Foods", {
       id: {
         allowNull: false,
@@ -121,6 +95,8 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropAllTables();
+    await queryInterface.dropTable("Employees");
+    await queryInterface.dropTable("Customers");
+    await queryInterface.dropTable("Foods");
   },
 };
