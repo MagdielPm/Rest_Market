@@ -77,7 +77,7 @@ export async function getEmployeeById(req, res) {
 }
 
 //Delete an Employee by id with DELETE
-export async function deletEmployeeById(req, res) {
+export async function deleteEmployeeById(req, res) {
   try {
     const { id } = req.params;
     const employee = await Employee.destroy({
