@@ -2,7 +2,7 @@ import Employee from "../models/employee";
 
 //Create new Employee with POST
 export async function createNewEmployee(req, res) {
-  const { fullName, numberPhone, email, job } = req.body;
+  const { fullName, numberPhone, email, job, state, city } = req.body;
   try {
     let newEmployee = await Employee.create(
       {
@@ -10,9 +10,11 @@ export async function createNewEmployee(req, res) {
         numberPhone: numberPhone,
         email: email,
         job: job,
+        state: state,
+        city: city,
       },
       {
-        fields: ["fullName", "numberPhone", "email", "job"],
+        fields: ["fullName", "numberPhone", "email", "job", "state", "city"],
       }
     );
 
@@ -104,10 +106,10 @@ export async function deletEmployeeById(req, res) {
 //Update an Employee by id with PUT
 export async function updateAnEmployee(req, res) {
   const { id } = req.params;
-  const { fullName, numberPhone, email, job } = req.body;
+  const { fullName, numberPhone, email, job, state, city } = req.body;
   try {
     let employees = await Employee.findAll({
-      attributes: ["fullName", "numberPhone", "email", "job"],
+      attributes: ["fullName", "numberPhone", "email", "job", "state", "city"],
       where: {
         id: id,
       },
@@ -121,6 +123,8 @@ export async function updateAnEmployee(req, res) {
           numberPhone: numberPhone,
           email: email,
           job: job,
+          state: state,
+          city: city,
         });
       });
     }

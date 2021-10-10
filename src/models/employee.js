@@ -21,6 +21,12 @@ const Employe = sequelize.define("Employees", {
   job: {
     type: Sequelize.STRING,
   },
+  state: {
+    type: Sequelize.STRING,
+  },
+  city: {
+    type: Sequelize.STRING,
+  },
 });
 
 export default Employe;
