@@ -110,6 +110,12 @@ module.exports = {
       ingredients: {
         type: Sequelize.STRING,
       },
+      foodPrice: {
+        type: Sequelize.STRING,
+      },
+      foodExpiration: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -18,6 +18,12 @@ const Food = sequelize.define("Foods", {
       ingredients: {
         type: Sequelize.STRING,
       },
+      foodPrice: {
+        type: Sequelize.STRING,
+      },
+      foodExpiration: {
+        type: Sequelize.STRING,
+      },
 
 });
 

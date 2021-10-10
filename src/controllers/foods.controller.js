@@ -2,16 +2,18 @@ import Food from "../models/food";
 
 //Create new Food with POST
 export async function createNewFood(req, res) {
-  const { foodName, foodDescription, ingredients} = req.body;
+  const { foodName, foodDescription, ingredients,foodPrice,foodExpiration} = req.body;
   try {
-    let newFood = await Employee.create(
+    let newFood = await Food.create(
       {
         foodName: foodName,
         foodDescription: foodDescription,
         ingredients: ingredients,
+        foodPrice: foodPrice,
+        foodExpiration:foodExpiration,
       },
       {
-        fields: ["foodName", "foodDescription", "ingredients"],
+        fields: ["foodName", "foodDescription", "ingredients","foodPrice","foodExpiration"],
       }
     );
 
@@ -50,7 +52,7 @@ export async function getAllFoods(req, res) {
   }
 }
 
-//Get a food by id with GET
+//Get a Food by id with GET
 export async function getFoodById(req, res) {
   try {
     const { id } = req.params;
@@ -75,7 +77,7 @@ export async function getFoodById(req, res) {
   }
 }
 
-//Delete an Employee by id with DELETE
+//Delete an Food by id with DELETE
 export async function deletFoodById(req, res) {
   try {
     const { id } = req.params;
@@ -100,13 +102,13 @@ export async function deletFoodById(req, res) {
   }
 }
 
-//Update an Employee by id with PUT
+//Update an Food by id with PUT
 export async function updateAFood(req, res) {
   const { id } = req.params;
-  const { foodName, foodDescription, ingredients} = req.body;
+  const { foodName, foodDescription, ingredients, foodPrice, foodExpiration} = req.body;
   try {
     let foods = await Food.findAll({
-      attributes: ["foodName", "foodDescription", "ingredients"],
+      attributes: ["foodName", "foodDescription", "ingredients","foodPrice","foodExpiration"],
       where: {
         id: id,
       },
@@ -119,9 +121,12 @@ export async function updateAFood(req, res) {
           foodName: foodName,
           foodDescription: foodDescription,
           ingredients: ingredients,
+          foodPrice: foodPrice,
+          foodExpiration: foodExpiration,
         });
       });
     }
+
 
     return res.status(201).json({
       message: "Food updated successfully",
