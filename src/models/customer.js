@@ -18,6 +18,12 @@ const Customer = sequelize.define("Customers", {
   email: {
     type: Sequelize.STRING,
   },
+  state: {
+    type: Sequelize.STRING,
+  },
+  city: {
+    type: Sequelize.STRING,
+  },
 });
 
 export default Customer;
