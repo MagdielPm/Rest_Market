@@ -141,7 +141,7 @@ module.exports = {
           ingredients:
             "Tortilla, carne, lechuga, aguacate, tomate, cebolla y salsas",
           foodPrice: "$25",
-          foodExpiration:"11/10/2021",
+          foodExpiration: "11/10/2021",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -152,7 +152,7 @@ module.exports = {
           ingredients:
             "Tortilla, carne, lechuga, aguacate, tomate, cebolla y salsas",
           foodPrice: "$25",
-          foodExpiration:"11/10/2021",
+          foodExpiration: "11/10/2021",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -162,7 +162,7 @@ module.exports = {
           foodDescription: "Pibs yucatecos, un antojito regional",
           ingredients: "Masa, carne, chile, tomate y salsas",
           foodPrice: "$555",
-          foodExpiration:"21/10/2021",
+          foodExpiration: "21/10/2021",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -172,7 +172,7 @@ module.exports = {
           foodDescription: "Caldo de lima yucateco, un antojito regional",
           ingredients: "Pavo, lima, cebolla y limon",
           foodPrice: "$70",
-          foodExpiration:"12/10/2021",
+          foodExpiration: "12/10/2021",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -183,7 +183,7 @@ module.exports = {
           ingredients:
             "Tortilla, carne, cebolla morada, chile habanero, limon y salsas",
           foodPrice: "$40",
-          foodExpiration:"16/10/2021",
+          foodExpiration: "16/10/2021",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -200,8 +200,9 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-     await queryInterface.bulkDelete("Employees", null, {});
-     await queryInterface.bulkDelete("Customers", null, {});
-     await queryInterface.bulkDelete("Foods", null, {});
+    await queryInterface.bulkDelete("Employees", null, {});
+    await queryInterface.bulkDelete("Customers", null, {});
+    await queryInterface.bulkDelete("Foods", null, {});
+    await queryInterface.bulkDelete("Users", null, {});
   },
 };
