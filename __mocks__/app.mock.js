@@ -3,6 +3,7 @@ import express, { json } from "express";
 // Import all the mock routes here below 👇🏽
 import employeeMockRoutes from "./routes/employees.mock";
 import productMockRoutes from "./routes/product.mock";
+import foodMockRoutes from "./routes/foods.mock";
 import customerMockRoutes from "./routes/customers.mock";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(json());
 // Remember, the endpoins have to be in plural
 app.use("/api/employees", employeeMockRoutes);
 app.use("/api/products", productMockRoutes);
+app.use("/api/foods", foodMockRoutes);
 app.use("/api/customers", customerMockRoutes);
 
 export default app;
