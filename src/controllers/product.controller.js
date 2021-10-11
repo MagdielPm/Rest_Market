@@ -20,8 +20,8 @@ export async function createNewProduct(req, res) {
   
         if (!!newProduct) {
             return res.status(201).json({
-            message: "Product created successfully.",
-            data: newProduct,
+                message: "Product created successfully.",
+                data: newProduct,
             });
         }
     } catch (error) {
@@ -69,6 +69,12 @@ export async function getProductById(req, res) {
                 data: product,
             });
         }
+        else {
+            res.status(500).json({
+                message: "Could not find a product with that id.",
+                data: {},
+            });
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -94,6 +100,12 @@ export async function deleteProductById(req, res) {
                 data: product,
             });
         }
+        else {
+            res.status(500).json({
+                message: "Could not delete a product with that id.",
+                data: {},
+              });
+        }
     } catch (error) {
       console.log(error);
       res.status(500).json({
@@ -108,30 +120,35 @@ export async function updateAProduct(req, res) {
     const { id } = req.params;
     const { name, description, price, price_per_kg, stock, require_id_to_sell } = req.body;
     try {
-        let products = await Product.findAll({
+        let product = await Product.findOne({
             attributes: ["name", "description", "price", "price_per_kg", "stock", "require_id_to_sell"],
             where: {
                 id: id,
             },
         });
   
-        if (!!products) {
-            products.forEach(async (product) => {
-                await product.update({
-                    name: name,
-                    description: description,
-                    price: price,
-                    price_per_kg: price_per_kg,
-                    stock: stock,
-                    require_id_to_sell: require_id_to_sell
-                });
+        if (!!product) {
+            await product.update({
+                id: id,
+                name: name,
+                description: description,
+                price: price,
+                price_per_kg: price_per_kg,
+                stock: stock,
+                require_id_to_sell: require_id_to_sell
             });
-        } 
-  
-        return res.status(201).json({
-            message: "Product updated successfully.",
-            data: products,
-        });
+            
+            return res.status(201).json({
+                message: "Product updated successfully.",
+                data: product,
+            });
+        }
+        else {
+            res.status(500).json({
+                message: "Could not update a product with that id.",
+                data: {},
+            });
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({
