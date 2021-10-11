@@ -14,16 +14,14 @@ describe("Test sequelize mocking model findAll function", () => {
         fullName: "Rocio Wabi",
         numberPhone: "9995546123",
         email: "rocio@hotmail.com",
-        job: "Taquero",
         state: "Monterrey",
         city: "Nuevo León",
-    },
-    {
+      },
+      {
         id: 2,
         fullName: "Eduardo Rubí",
         numberPhone: "9281234567",
         email: "lalo@hotmail.com",
-        job: "Frontend developer",
         state: "Cancún",
         city: "Quintana Roo",
       },
@@ -53,13 +51,12 @@ describe("Test sequelize mocking model findOne function", () => {
       },
     });
     expect(customer.dataValues["0"]).toEqual({
-        id: 1,
-        fullName: "Rocio Wabi",
-        numberPhone: "9995546123",
-        email: "rocio@hotmail.com",
-        job: "Taquero",
-        state: "Monterrey",
-        city: "Nuevo León",
+      id: 1,
+      fullName: "Rocio Wabi",
+      numberPhone: "9995546123",
+      email: "rocio@hotmail.com",
+      state: "Monterrey",
+      city: "Nuevo León",
     });
   });
 });
@@ -72,7 +69,6 @@ describe("Test sequelize mocking model update function", () => {
         fullName: "Naila Rubí",
         numberPhone: "1234567890",
         email: "naila@hotmail.com",
-        job: "Actuaria",
         state: "Chemax",
         city: "Yucatán",
       },
@@ -90,19 +86,17 @@ describe("Test sequelize mocking model create function", () => {
         fullName: "Naila Rubí",
         numberPhone: "1234567890",
         email: "naila@hotmail.com",
-        job: "Actuaria",
         state: "Chemax",
         city: "Yucatán",
       },
     ]);
     expect(customer.dataValues["0"]).toEqual({
-        id: 3,
-        fullName: "Naila Rubí",
-        numberPhone: "1234567890",
-        email: "naila@hotmail.com",
-        job: "Actuaria",
-        state: "Chemax",
-        city: "Yucatán",
+      id: 3,
+      fullName: "Naila Rubí",
+      numberPhone: "1234567890",
+      email: "naila@hotmail.com",
+      state: "Chemax",
+      city: "Yucatán",
     });
   });
 });

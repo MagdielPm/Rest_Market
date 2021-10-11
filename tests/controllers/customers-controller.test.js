@@ -8,22 +8,20 @@ describe("Get all the customers with GET controller", () => {
     expect(response.body).toEqual({
       data: [
         {
-            id: 1,
-            fullName: "Jhonatan Serrano",
-            numberPhone: "9995748888",
-            email: "jhonatan@hotmail.com",
-            job: "Enólogo",
-            state: "Cancún",
-            city: "Quintana Roo",
-          },
-          {
-            id: 2,
-            fullName: "Juan Carlos Pérez",
-            numberPhone: "9283547894",
-            email: "juanca@hotmail.com",
-            job: "Chef",
-            state: "Tulum",
-            city: "Quintana Roo",
+          id: 1,
+          fullName: "Jhonatan Serrano",
+          numberPhone: "9995748888",
+          email: "jhonatan@hotmail.com",
+          state: "Cancún",
+          city: "Quintana Roo",
+        },
+        {
+          id: 2,
+          fullName: "Juan Carlos Pérez",
+          numberPhone: "9283547894",
+          email: "juanca@hotmail.com",
+          state: "Tulum",
+          city: "Quintana Roo",
         },
       ],
     });
@@ -40,7 +38,6 @@ describe("Create a customer with POST controller", () => {
         fullName: "Moisés Vinajera",
         numberPhone: "9996541237",
         email: "moi@hotmail.com",
-        job: "Java Developer",
         state: "Yucatán",
         city: "Mérida",
       },
@@ -54,13 +51,12 @@ describe("Get a customer by id with GET BY ID controller", () => {
     const response = await supertest(app).get("/api/customers/2");
     expect(response.body).toEqual({
       data: {
-        id: 2,
-        fullName: "Juan Carlos Pérez",
-        numberPhone: "9283547894",
-        email: "juanca@hotmail.com",
-        job: "Chef",
-        state: "Tulum",
-        city: "Quintana Roo",
+        id: "2",
+        fullName: "Jhonatan Serrano",
+        numberPhone: "9995748888",
+        email: "jhonatan@hotmail.com",
+        state: "Quintana Roo",
+        city: "Cancún",
       },
     });
   });
@@ -84,9 +80,8 @@ describe("Update an customer with PUT controller", () => {
         fullName: "Naila Rubí",
         numberPhone: "1234567890",
         email: "naila@hotmail.com",
-        job: "Actuaria",
-        state: "Valladolid",
-        city: "Yucatán",
+        state: "Yucatan",
+        city: "Valladolid",
       },
     });
   });
