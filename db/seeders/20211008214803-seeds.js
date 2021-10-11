@@ -132,53 +132,6 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      "Products",
-      [
-        {
-          id: 1,
-          productName: "Metanfetamina Azul",
-          productDescription: "Metanfetamina de Walter White 99% pura",
-          productPrice: "$150",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: 2,
-          productName: "Metanfetamina Mexicana",
-          productDescription: "Metanfetamina del cartel Mexicano 76% pura",
-          productPrice: "$80",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: 3,
-          productName: "Metanfetamina Jesse",
-          productDescription: "Metanfetamina de Jesse Pinkman 86% pura",
-          productPrice: "$120",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: 4,
-          productName: "Metanfetamina Gale",
-          productDescription: "Metanfetamina de Gale Boetticher 82% pura",
-          productPrice: "$130",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: 5,
-          productName: "Metanfetamina con Pimiento",
-          productDescription: "Metanfetamina de Jesse Pinkman 56% pura",
-          productPrice: "$70",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {}
-    );
-
-    await queryInterface.bulkInsert(
       "Foods",
       [
         {
@@ -246,5 +199,9 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+     await queryInterface.bulkDelete("Employees", null, {});
+     await queryInterface.bulkDelete("Customers", null, {});
+     await queryInterface.bulkDelete("Foods", null, {});
   },
 };
