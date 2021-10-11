@@ -5,7 +5,7 @@ import {
   getAllCustomers,
   getCustomerById,
   updateACustomer,
-} from "../controllers/customer.mock.controller";
+} from "../controllers/customers.mock.controller";
 
 const router = Router();
 
