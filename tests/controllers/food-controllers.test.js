@@ -51,7 +51,7 @@ describe("Get an food by id with GET BY ID controller", () => {
     const response = await supertest(app).get("/api/foods/2");
     expect(response.body).toEqual({
       data: {
-        id: 2,
+        id: "2",
         foodName: "Tacos de Cochinita",
         foodDescription: "Tortilla rellena de cerdo guisado yucateco",
         ingredients: "Tortilla, cerdo, recado, naranja",
