@@ -40,7 +40,7 @@ export async function createNewFood(req, res) {
   export async function getFoodById(req, res) {
     const id = req.params.id;
     const foodById = {
-        id: 2,
+        id: id,
         foodName: "Tacos de Cochinita",
         foodDescription: "Tortilla rellena de cerdo guisado yucateco",
         ingredients: "Tortilla, cerdo, recado, naranja",
