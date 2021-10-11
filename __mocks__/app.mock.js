@@ -2,6 +2,7 @@ import express, { json } from "express";
 
 // Import all  the mock routes here below 👇🏽
 import employeeMockRoutes from "./routes/employees.mock";
+import customerMockRoutes from "./routes/customers.mock";
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.use(json());
 //Put your routes here to listen in localhost:3000 👻
 // Remember, the endpoins have to be in plural
 app.use("/api/employees", employeeMockRoutes);
+app.use("/api/customers", customerMockRoutes);
 
 export default app;
