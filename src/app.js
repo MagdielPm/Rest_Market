@@ -6,6 +6,7 @@ import employeerRoutes from "./routes/employees";
 import customerRoutes from "./routes/customers";
 import foodRoutes from "./routes/foods";
 import productRoutes from "./routes/product";
+import usersRoutes from "./routes/users";
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use(json());
 
 //Put your routes here to listen in localhost:3000 👻
 // Remember, the endpoins have to be in plural
+
+app.use("/api/users", usersRoutes);
 app.use("/api/employees", employeerRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/foods", foodRoutes);
