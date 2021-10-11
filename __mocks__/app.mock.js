@@ -4,6 +4,7 @@ import express, { json } from "express";
 import employeeMockRoutes from "./routes/employees.mock";
 import productMockRoutes from "./routes/product.mock";
 import foodMockRoutes from "./routes/foods.mock";
+import customerMockRoutes from "./routes/customers.mock";
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use(json());
 app.use("/api/employees", employeeMockRoutes);
 app.use("/api/products", productMockRoutes);
 app.use("/api/foods", foodMockRoutes);
- 
+app.use("/api/customers", customerMockRoutes);
+
 export default app;
