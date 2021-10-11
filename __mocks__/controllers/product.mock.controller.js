@@ -82,7 +82,7 @@ export async function getProductById(req, res) {
 // Delete a mock product by id with DELETE
 export async function deleteProductById(req, res) {
     const id = req.params.id;
-    return res.status(200).json({ id: id });
+    return res.status(200).json({ data: id });
 }
 
 // Update a mock product by id with PUT

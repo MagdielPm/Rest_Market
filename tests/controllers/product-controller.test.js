@@ -22,7 +22,7 @@ describe("Create a new product with POST", () => {
 // Test for [getAllProducts] mock function
 describe("Get all products with GET", () => {
     it("Should return all mock products", async () => {
-        const response = await supertest(app).post("/api/products");
+        const response = await supertest(app).get("/api/products");
         expect(response.body).toEqual({
             data: [
                 {
@@ -78,10 +78,10 @@ describe("Get all products with GET", () => {
 // Test for [getProductById] mock function
 describe("Get a product by id with GET", () => {
     it("Should return the product with id: 2", async () => {
-        const response = await supertest(app).post("/api/products/2");
+        const response = await supertest(app).get("/api/products/2");
         expect(response.body).toEqual({
             data: {
-                id: 2,
+                id: "2",
                 name: "Vanilla Coca-Cola",
                 description: "Vanilla flavored Coca-Cola soda. Limited edition.",
                 price: 1.50,
@@ -96,15 +96,15 @@ describe("Get a product by id with GET", () => {
 // Test for [deleteProductById] mock function
 describe("Delete a product by id with DELETE", () => {
     it("Should return the id of the deleted product", async () => {
-        const response = await supertest(app).post("/api/products/1");
-        expect(response.body).toEqual({ data: 1 });
+        const response = await supertest(app).delete("/api/products/1");
+        expect(response.body).toEqual({ data: "1" });
     });
 });
 
 // Test for [updateAProduct] mock function
 describe("Update a product by id with PUT", () => {
     it("Should return the updated product", async () => {
-        const response = await supertest(app).post("/api/products/3");
+        const response = await supertest(app).put("/api/products/3");
         expect(response.body).toEqual({
             data: {
                 id: 3,

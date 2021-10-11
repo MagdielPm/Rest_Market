@@ -1,10 +1,9 @@
-import { response } from "express";
-import MockDBConnection from "../../__mocks__/mock/mock_db";
+import ProductMock from "../../__mocks__/models/product.mock";
 
 // Test for [findAll] method for GET HTTP request
 describe("Test sequelize mocking model 'findAll' method", () => {
     it("Should return all existing entries in mock db", async () => {
-        const products = await MockDBConnection.findAll();
+        const products = await ProductMock.findAll();
         const allProducts = [];
         allProducts.push(products[0].dataValues["0"]);
         allProducts.push(products[0].dataValues["1"]);
@@ -64,7 +63,7 @@ describe("Test sequelize mocking model 'findAll' method", () => {
 // Test for [findOne] method for GET HTTP request
 describe("Test sequelize mocking model 'findOne' method", () => {
     it("Should return the entry with id: 1 in db", async () => {
-        const product = await MockDBConnection.findOne({
+        const product = await ProductMock.findOne({
             where: {
                 id: 1
             }
@@ -84,7 +83,7 @@ describe("Test sequelize mocking model 'findOne' method", () => {
 // Test for [destroy] method for DELETE HTTP request
 describe("Test sequelize mocking model 'destroy' method", () => {
     it("Should return the number of deleted entries (1)", async () => {
-        const number_of_deleted_products = await MockDBConnection.destroy({
+        const number_of_deleted_products = await ProductMock.destroy({
             where: {
                 id: 1
             },
@@ -97,7 +96,7 @@ describe("Test sequelize mocking model 'destroy' method", () => {
 // Test for [update] method for PUT HTTP request
 describe("Test sequelize mocking model 'update' method", () => {
     it("Should return the number of updated entries (1)", async () => {
-        const number_of_updated_products = await MockDBConnection.update([
+        const number_of_updated_products = await ProductMock.update([
             {
                 name: "Doritos nacho cheese 146g",
                 description: "Cheese flavored tortilla chips.",
@@ -113,7 +112,7 @@ describe("Test sequelize mocking model 'update' method", () => {
 // Test for [create] method for POST HTTP request
 describe("Test sequelize mocking model 'create' method", () => {
     it("Should return the created product", async () => {
-        const product = await MockDBConnection.create([
+        const product = await ProductMock.create([
             {
                 id: 6,
                 name: "Doritos nacho cheese 146g",
@@ -124,7 +123,7 @@ describe("Test sequelize mocking model 'create' method", () => {
                 require_id_to_sell: false,
             }
         ]);
-        expect(product).toEqual({
+        expect(product.dataValues["0"]).toEqual({
             id: 6,
             name: "Doritos nacho cheese 146g",
             description: "Cheese flavored tortilla chips.",
