@@ -1,5 +1,5 @@
-FROM node:latest
+FROM node:slim
 COPY / /
 RUN yarn install
-RUN yarn build 
-ENTRYPOINT [ "yarn start" ]
+RUN yarn build
+ENTRYPOINT yarn start
