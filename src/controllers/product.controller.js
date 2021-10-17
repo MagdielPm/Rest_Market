@@ -38,25 +38,27 @@ export async function createNewProduct(req, res) {
 
 // Get all the products in the Product table with GET
 export async function getAllProducts(req, res) {
-    logger.log({
-        level: "info",
-        log_type: "request_info",
-        verb: "get",
-        route: "/api/products/",
-        query_parameters: req.query,
-        headers: req.headers
-    });
+    // Log HTTP request
+    logger.log({ level: "info", log_type: "request_info", verb: req.method, route: "/api/products/", query_parameters: req.query, headers: req.headers });
+    logger.log({ level: "debug", log_type: "request_debug", verb: req.method, route: "/api/products/", body: req.body });
     try {
         const products = await Product.findAll();
+        // Log db query
+        logger.log({ level: "debug", log_type: "query", verb: req.method, route: "/api/products/", query: "SELECT * FROM Products" });
   
         if (!!products) {
             res.status(200).json({
             message: "All products fetched successfully.",
             data: products,
             });
+            // Log method call
+            logger.log({ level: "debug", log_type: "method_call", verb: req.method, route: "/api/products/", method_name: "res.status(200).json()", 
+            method_parameters: {message: "All products fetched successfully.", data: products}});
         }
     } catch (error) {
         console.log(error);
+        // Log error
+        logger.log({ level: "error", log_type: "error", verb: req.method, error_message: "Something went wrong while fetching products.", stack_trace: error.stack });
         res.status(500).json({
             message: "Something went wrong while fetching products.",
             data: {},
