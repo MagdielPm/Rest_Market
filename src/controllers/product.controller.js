@@ -1,4 +1,7 @@
 import Product from "../models/product";
+import LoggerService from "../services/logger.service";
+var logger = new LoggerService();
+logger = logger.logger;
 
 // Create a new Product with POST
 export async function createNewProduct(req, res) {
@@ -35,6 +38,14 @@ export async function createNewProduct(req, res) {
 
 // Get all the products in the Product table with GET
 export async function getAllProducts(req, res) {
+    logger.log({
+        level: "info",
+        log_type: "request_info",
+        verb: "get",
+        route: "/api/products/",
+        query_parameters: req.query,
+        headers: req.headers
+    });
     try {
         const products = await Product.findAll();
   
