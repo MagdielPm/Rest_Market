@@ -1,3 +1,4 @@
+import { error } from "winston";
 import Product from "../models/product";
 import LoggerService from "../services/logger.service";
 var logger = new LoggerService();
@@ -5,6 +6,9 @@ logger = logger.logger;
 
 // Create a new Product with POST
 export async function createNewProduct(req, res) {
+    // Log HTTP request
+    logger.log({ level: "info", log_type: "request_info", verb: req.method, route: "/api/products/", query_parameters: req.query, headers: req.headers });
+    logger.log({ level: "debug", log_type: "request_debug", verb: req.method, route: "/api/products/", body: req.body });
     const { name, description, price, price_per_kg, stock, require_id_to_sell } = req.body;
     try {
         let newProduct = await Product.create(
@@ -20,6 +24,10 @@ export async function createNewProduct(req, res) {
                 fields: ["name", "description", "price", "price_per_kg", "stock", "require_id_to_sell"],
             }
         );
+        // Log db query
+        logger.log({ level: "debug", log_type: "query", verb: req.method, route: "/api/products/", 
+        query: `INSERT INTO Products (name, description, price, price_per_kg, stock, require_id_to_sell) 
+        VALUES (${name}, ${description}, ${price}, ${price_per_kg}, ${stock}, ${require_id_to_sell})` });
   
         if (!!newProduct) {
             return res.status(201).json({
@@ -28,11 +36,46 @@ export async function createNewProduct(req, res) {
             });
         }
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Something went wrong while creating a Product.",
-            data: {},
-        });
+        if (error.name == "SequelizeUniqueConstraintError" && error.message == "Validation error") {
+            // Log validation error
+            logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `"name" field must be unique.` });
+            res.status(500).json({
+                message: `"name" field must be unique.`,
+                data: {},
+            });
+        }
+        else if (error.name == "SequelizeValidationError" && error.message.split(":")[0] == "notNull Violation") {
+            let null_fields_str = "";
+            let null_fields_count = 0;
+            if (!name) {null_fields_str += `"name" `; null_fields_count += 1;}
+            if (!stock) {null_fields_str += `"stock" `; null_fields_count += 1;}
+            if (!require_id_to_sell) {null_fields_str += `"require_id_to_sell" `; null_fields_count += 1;}
+            
+            if(null_fields_count == 1){
+                // Log validation error
+                logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `${null_fields_str}field cannot be null.` });
+                res.status(500).json({
+                    message: `${null_fields_str}field cannot be null.`,
+                    data: {},
+                });
+            }
+            else {
+                // Log validation error
+                logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `${null_fields_str}fields cannot be null.` });
+                res.status(500).json({
+                    message: `${null_fields_str}fields cannot be null.`,
+                    data: {},
+                });
+            }
+        }
+        else {
+            // Log error
+            logger.log({ level: "error", log_type: "error", verb: req.method, error_message: "Something went wrong while fetching products.", stack_trace: error.stack });
+            res.status(500).json({
+                message: "Something went wrong while creating a Product.",
+                data: {},
+            });
+        }
     }
 }
 

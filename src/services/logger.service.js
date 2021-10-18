@@ -38,7 +38,7 @@ class LoggerService {
                             message = message + `${info.verb.toUpperCase()} | error_message: ${info.error_message} | stack_trace: ${info.stack_trace}`;
                             break;
                         case "validation_error":
-                            message = message + `${info.verb.toUpperCase()} | ${info.route} | validation_error: ${message}`;
+                            message = message + `${info.verb.toUpperCase()} | ${info.route} | validation_error: ${info.message}`;
                             break; 
                     }
                     return message;
