@@ -1,4 +1,7 @@
 import Employee from "../models/employee";
+import LoggerService from "../services/logger.service";
+var logger = new LoggerService();
+logger = logger.logger;
 
 //Create new Employee with POST
 export async function createNewEmployee(req, res) {
