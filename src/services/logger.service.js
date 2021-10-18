@@ -26,7 +26,7 @@ class LoggerService {
                             message = message + `${info.verb.toUpperCase()} | ${info.route} | query_parameters: ${JSON.stringify(info.query_parameters)} | headers: ${JSON.stringify(info.headers)}`;
                             break;
                         case "request_debug":
-                            message = message + `${info.verb.toUpperCase()} | ${info.route} | body: ${JSON.stringify(info.body)}`;
+                            message = message + `${info.verb.toUpperCase()} | ${info.route} | body: ${JSON.stringify(obfuscate_sensible_data(info.body))}`;
                             break;
                         case "method_call":
                             message = message + `${info.verb.toUpperCase()} | ${info.route} | method_name: ${info.method_name} | method_parameters: ${JSON.stringify(info.method_parameters)}`;
@@ -47,6 +47,16 @@ class LoggerService {
         });
     }
 
+}
+
+function obfuscate_sensible_data(data) {
+    let obfuscated_data = JSON.parse(JSON.stringify(data));
+    for (var variableName in obfuscated_data) {
+        if (variableName == "user_token" || variableName == "password" || variableName == "user.password" || variableName == "numberPhone") {
+            obfuscated_data[variableName] = obfuscated_data[variableName].replace(new RegExp(".", "gi"), "#");
+        }
+    }
+    return obfuscated_data;
 }
 
 module.exports = LoggerService;

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   createNewFood,
-  deletFoodById,
+  deleteFoodById,
   getAllFoods,
   getFoodById,
   updateAFood,
@@ -16,7 +16,7 @@ router.use(verifyMyActiveToken);
 router.post("/", createNewFood);
 router.get("/", getAllFoods);
 router.get("/:id", getFoodById);
-router.delete("/:id", deletFoodById);
+router.delete("/:id", deleteFoodById);
 router.put("/:id", updateAFood);
 
 export default router;
