@@ -1,7 +1,7 @@
 const { level } = require("winston");
 var winston = require("winston");
 
-class LoggerService {
+export default class LoggerService {
     
     constructor() {
         this.logger = winston.createLogger({
@@ -23,13 +23,13 @@ class LoggerService {
                     // Append details according to the desired log type
                     switch(info.log_type) {
                         case "request_info":
-                            message = message + `${info.verb.toUpperCase()} | ${info.route} | query_parameters: ${JSON.stringify(info.query_parameters)} | headers: ${JSON.stringify(info.headers)}`;
+                            message = message + `${info.verb.toUpperCase()} | ${info.route} | query_parameters: ${JSON.stringify(OSD(info.query_parameters))} | headers: ${JSON.stringify(OSD(info.headers))}`;
                             break;
                         case "request_debug":
-                            message = message + `${info.verb.toUpperCase()} | ${info.route} | body: ${JSON.stringify(obfuscate_sensible_data(info.body))}`;
+                            message = message + `${info.verb.toUpperCase()} | ${info.route} | body: ${JSON.stringify(OSD(info.body))}`;
                             break;
                         case "method_call":
-                            message = message + `${info.verb.toUpperCase()} | ${info.route} | method_name: ${info.method_name} | method_parameters: ${JSON.stringify(info.method_parameters)}`;
+                            message = message + `${info.verb.toUpperCase()} | ${info.route} | method_name: ${info.method_name} | method_parameters: ${JSON.stringify(OSD(info.method_parameters))}`;
                             break;
                         case "query":
                             message = message + `${info.verb.toUpperCase()} | ${info.route} | query: ${info.query}`;
@@ -49,14 +49,31 @@ class LoggerService {
 
 }
 
-function obfuscate_sensible_data(data) {
+// Utilitary function to obfuscate sensible data in "user_token", "password", "user.password" and "numberPhone" variables into "first layer"
+// and "data layer"
+function OSD(data) {
     let obfuscated_data = JSON.parse(JSON.stringify(data));
     for (var variableName in obfuscated_data) {
+        // Obfuscate fist layer
         if (variableName == "user_token" || variableName == "password" || variableName == "user.password" || variableName == "numberPhone") {
             obfuscated_data[variableName] = obfuscated_data[variableName].replace(new RegExp(".", "gi"), "#");
+        }
+        // Obfuscate data layer
+        if (variableName == "data") {
+            for (var variableNameInData in obfuscated_data[variableName]) {
+                if (variableNameInData == "user_token" || variableNameInData == "password" || variableNameInData == "user.password" || variableNameInData == "numberPhone") {
+                    obfuscated_data[variableName][variableNameInData] = obfuscated_data[variableName][variableNameInData].replace(new RegExp(".", "gi"), "#");
+                }
+            }
         }
     }
     return obfuscated_data;
 }
 
-module.exports = LoggerService;
+// Utilitary function to obfuscate a sensible string. If typeof query_parameter == "string", it gets obfuscated; otherwise query_parameter is returned
+// with no changes.
+export function OSQP(query_parameter) {
+    if (typeof query_parameter == "string") {
+        return query_parameter.replace(new RegExp(".", "gi"), "#");
+    }
+}

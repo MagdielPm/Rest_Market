@@ -1,8 +1,8 @@
-import { error } from "winston";
 import Product from "../models/product";
 import LoggerService from "../services/logger.service";
 var logger = new LoggerService();
 logger = logger.logger;
+//import { OSQP } from "../services/logger.service";
 
 // Create a new Product with POST
 export async function createNewProduct(req, res) {
