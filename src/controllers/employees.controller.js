@@ -100,7 +100,7 @@ export async function getAllEmployees(req, res) {
       level: "debug",
       log_type: "query",
       verb: req.method,
-      route: "/api/products/",
+      route: "/api/foods/",
       query: "SELECT * FROM Employees",
     });
 

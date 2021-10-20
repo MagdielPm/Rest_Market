@@ -1,8 +1,8 @@
-import { error } from "winston";
 import Food from "../models/food";
 import LoggerService from "../services/logger.service";
 var logger = new LoggerService();
 logger = logger.logger;
+//import { OSQP } from "../services/logger.service";
 
 // Create a new Food with POST
 export async function createNewFood(req, res) {
@@ -77,7 +77,7 @@ export async function createNewFood(req, res) {
     }
 }
 
-// Get all the products in the Food table with GET
+// Get all the foods in the Food table with GET
 export async function getAllFoods(req, res) {
     // Log HTTP request
     logger.log({ level: "info", log_type: "request_info", verb: req.method, route: "/api/foods/", query_parameters: req.query, headers: req.headers });
@@ -123,11 +123,11 @@ export async function getFoodById(req, res) {
         if (!!food) {
             res.status(200).json({
                 message: "Food fetched successfully.",
-                data: product,
+                data: food,
             });
            // Log method call
            logger.log({ level: "debug", log_type: "method_call", verb: req.method, route: "/api/foods"+req.path, method_name: "res.status(200).json()", 
-           method_parameters: {message: "Product fetched successfully.", data: food}});
+           method_parameters: {message: "Food fetched successfully.", data: food}});
         }
         else {
             res.status(500).json({
@@ -208,7 +208,7 @@ export async function updateAFood(req, res) {
          // Log db query
          logger.log({ level: "debug", log_type: "query", verb: req.method, route: "/api/foods"+req.path, query: `SELECT * FROM Foods WHERE id = ${req.params["id"]}` });
         if (!!food) {
-            await product.update({
+            await food.update({
                 id: id,
                 foodName: foodName,
                 foodDescription: foodDescription,
