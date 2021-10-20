@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "",
-    "password": "",
+    "username": "postgres",
+    "password": "postgres",
     "database": "rest-market",
-    "host": "127.0.0.1",
+    "host": "192.168.113.132",
     "dialect": "postgres"
   },
   "test": {
-    "username": "",
-    "password": "",
+    "username": "postgres",
+    "password": "postgres",
     "database": "rest-market",
-    "host": "127.0.0.1",
+    "host": "192.168.113.132",
     "dialect": "postgres"
   },
   "production": {
-    "username": "",
-    "password": "",
+    "username": "postgres",
+    "password": "postgres",
     "database": "rest-market",
-    "host": "127.0.0.1",
+    "host": "192.168.113.132",
     "dialect": "postgres"
   }
 }
