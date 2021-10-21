@@ -3,8 +3,8 @@ import {
   createNewCustomer,
   deleteCustomerById,
   getAllCustomers,
-  getCustomerById,
-  updateACustomer,
+  getCostumerById,
+  updateACustomerr,
 } from "../controllers/customers.controller";
 import { verifyMyActiveToken } from "../middleware/middleware";
 
@@ -15,8 +15,8 @@ const router = Router();
 router.use(verifyMyActiveToken);
 router.post("/", createNewCustomer);
 router.get("/", getAllCustomers);
-router.get("/:id", getCustomerById);
+router.get("/:id", getCostumerById);
 router.delete("/:id", deleteCustomerById);
-router.put("/:id", updateACustomer);
+router.put("/:id", updateACustomerr);
 
 export default router;
