@@ -222,7 +222,7 @@ export async function updateAFood(req, res) {
  
              // Log method call
              logger.log({ level: "debug", log_type: "method_call", verb: req.method, route: "/api/foods"+req.path, method_name: "res.status(201).json()", 
-             method_parameters: {message: "Food updated successfully.", data: product}});
+             method_parameters: {message: "Food updated successfully.", data: food}});
             
             return res.status(201).json({
                 message: "Food updated successfully.",
