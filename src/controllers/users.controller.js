@@ -163,16 +163,36 @@ export async function userLogin(req, res) {
 
     if (!!user) {
       const areEquals = bcrypt.compareSync(password, user.password);
-      areEquals
-        ? res.status(200).json({
+      if(areEquals){
+        res.status(200).json({
+          message: "Login successfully",
+          fullName: user.fullName,
+          token: createToken(user),
+        });
+        logger.log({
+          level: "debug",
+          log_type: "method_call",
+          verb: req.method,
+          route: "/api/users/",
+          method_name: "res.status(200).json()",
+          method_parameters: {
             message: "Login successfully",
-            fullName: user.fullName,
-            token: createToken(user),
-          })
-        : res.status(401).json({
-            message: "Password not correct, try again",
-            data: {},
-          });
+          },
+        });
+      }
+      else{
+        res.status(401).json({
+          message: "Password not correct, try again",
+          data: {},
+        });
+        logger.log({
+          level: "error",
+          log_type: "error",
+          verb: req.method,
+          error_message: "Password not correct, try again",
+          stack_trace: error.stack,
+        });
+      }
     } else {
       logger.log({
         level: "error",
