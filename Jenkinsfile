@@ -3,9 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                npm install yarn 
-		yarn install 
-		yarn build 
+                sh "npm install yarn" 
+		sh "yarn install"
+		sh "yarn build" 
             }
         }
         stage('Test') {
