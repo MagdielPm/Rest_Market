@@ -2,6 +2,7 @@ import User from "../models/user";
 import bcrypt from "bcrypt";
 import jwt from "jwt-simple";
 import moment from "moment";
+import { OSQP } from "../services/logger.service";
 
 import LoggerService from "../services/logger.service";
 var logger = new LoggerService();
@@ -44,7 +45,7 @@ export async function createNewUser(req, res) {
       log_type: "query",
       verb: req.method,
       route: "/api/employees/",
-      query: `INSERT INTO USERS (fullName, email, password) VALUES (${fullName}, ${email}, ${encryptedPassword})`,
+      query: `INSERT INTO USERS (fullName, email, password) VALUES (${fullName}, ${OSQP(email)}, ${OSQP(encryptedPassword)})`,
     });
     if (!!newUser) {
       logger.log({
