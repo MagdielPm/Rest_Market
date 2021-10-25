@@ -10,14 +10,14 @@ pipeline {
 		sh "yarn install"
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Testing..'
+                sh "yarn build"
             }
         }
-        stage('Deploy') {
+        stage('Test') {
             steps {
-                echo 'Deploying....'
+                sh "yarn test"
             }
         }
     }
