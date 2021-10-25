@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                npm install yarn 
+		yarn install 
+		yarn build 
             }
         }
         stage('Test') {
