@@ -1,11 +1,13 @@
 pipeline {
     agent any
+    
+    tools {nodejs "node"}
+
     stages {
-        stage('Build') {
+        stage('Install dependecies') {
             steps {
                 sh "npm install yarn" 
 		sh "yarn install"
-		sh "yarn build" 
             }
         }
         stage('Test') {
