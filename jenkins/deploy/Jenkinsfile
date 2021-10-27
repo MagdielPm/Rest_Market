@@ -10,8 +10,9 @@ pipeline {
         }
         stage('Delete previous version docker container') {
             steps {
-                sh "sudo docker rm -f rest-market-live && echo "Container rest-market-live removed.""
-                echo "Container rest-market-live does not exist."
+                sh "sudo docker rm -f rest-market-live"
+                //&& echo "Container rest-market-live removed."
+                //echo "Container rest-market-live does not exist."
             }
         }
         stage('Create and activate docker container for live version') {
