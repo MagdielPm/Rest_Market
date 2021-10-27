@@ -6,7 +6,9 @@ pipeline {
         stage('Install dependecies') {
             steps {
                 echo "hola mundo"
-		sh "docker -v"
+		withEnv(['docker=/usr/local/bin/docker']) {
+			sh "docker -v"
+		}
             }
         }
 
