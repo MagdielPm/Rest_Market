@@ -1,0 +1,13 @@
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Install dependecies') {
+            steps {
+                echo "hola mundo"
+            }
+        }
+
+    }
+}

@@ -22,4 +22,10 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            echo "Run the Rest_market_deploy pipeline"
+            build job: "Rest_market_deploy"
+        }
+    }
 }
