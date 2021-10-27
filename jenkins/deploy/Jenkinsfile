@@ -5,17 +5,17 @@ pipeline {
     stages {
         stage('Build docker image') {
             steps {
-                sudo docker build . -t rest-market-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}
+                sh "sudo docker build . -t rest-market-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}"
             }
         }
         stage('Delete previous version docker container') {
             steps {
-                sudo docker rm -f rest-market-live && echo "Container rest-market-live removed." || echo "Container rest-market-live does not exist."
+                sh "sudo docker rm -f rest-market-live && echo "Container rest-market-live removed." || echo "Container rest-market-live does not exist.""
             }
         }
         stage('Create and activate docker container for live version') {
             steps {
-                sudo docker run --name rest-market-live -d -p 3000:3000 rest-market-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}
+                sh "sudo docker run --name rest-market-live -d -p 3000:3000 rest-market-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}"
             }
         }
     }
