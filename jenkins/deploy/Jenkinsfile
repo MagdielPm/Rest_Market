@@ -6,9 +6,14 @@ pipeline {
         stage('Install dependecies') {
             steps {
                 echo "hola mundo"
-		withEnv(['docker=/usr/local/bin/docker']) {
+		sh "docker -v"
+		/*withEnv(['docker=/usr/local/bin/docker']) {
 			sh "docker -v"
 		}
+		Este es un intento con el path directo de docker que
+		configuré en mi jenkins y aún así no reconoce el 
+		comando de docker 
+		*/
             }
         }
 
