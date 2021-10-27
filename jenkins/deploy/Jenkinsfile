@@ -3,19 +3,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Install dependecies') {
+        stage('Build docker image') {
             steps {
-                echo "hola mundo"
-		sh "docker -v"
-		/*withEnv(['docker=/usr/local/bin/docker']) {
-			sh "docker -v"
-		}
-		Este es un intento con el path directo de docker que
-		configuré en mi jenkins y aún así no reconoce el 
-		comando de docker 
-		*/
+                sudo docker build . -t rest-market-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}
             }
         }
-
+        stage('Delete previous version docker container') {
+            steps {
+                sudo docker rm -f rest-market-live && echo "Container rest-market-live removed." || echo "Container rest-market-live does not exist."
+            }
+        }
+        stage('Create and activate docker container for live version') {
+            steps {
+                sudo docker run --name rest-market-live -d -p 3000:3000 rest-market-${GIT_BRANCH}:1.0.0-${BUILD_NUMBER}
+            }
+        }
+    }
+    post {
+        success {
+            echo "All done."
+            echo "Live version has been deployed."
+        }
     }
 }
