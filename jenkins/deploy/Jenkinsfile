@@ -6,7 +6,7 @@ pipeline {
         stage('Install dependecies') {
             steps {
                 echo "hola mundo"
-		sh "docker -v"
+		bat "docker -v"
             }
         }
 
