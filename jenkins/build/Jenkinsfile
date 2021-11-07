@@ -1,0 +1,31 @@
+pipeline {
+
+    agent any
+
+    tools {nodejs "node"}
+
+    stages {
+        stage('Install dependecies') {
+            steps {
+                sh "npm install yarn -g" 
+		        sh "yarn install"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "yarn build"
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "yarn test"
+            }
+        }
+    }
+    post {
+        success {
+            echo "Run the Rest_market_deploy pipeline"
+            build job: "Rest_market_deploy"
+        }
+    }
+}
