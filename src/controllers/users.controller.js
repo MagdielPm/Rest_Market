@@ -56,7 +56,7 @@ export async function createNewUser(req, res) {
         method_name: "res.status(201).json()",
         method_parameters: {
           message: "User created successfully.",
-          data: newEmployee,
+          data: newUser,
         },
       });
       return res.status(201).json({

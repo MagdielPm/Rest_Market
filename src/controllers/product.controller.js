@@ -41,7 +41,7 @@ export async function createNewProduct(req, res) {
         if (error.name == "SequelizeUniqueConstraintError" && error.message == "Validation error") {
             // Log validation error
             logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `"name" field must be unique.` });
-            res.status(500).json({
+            res.status(400).json({
                 message: `"name" field must be unique.`,
                 data: {},
             });
@@ -56,7 +56,7 @@ export async function createNewProduct(req, res) {
             if(null_fields_count == 1){
                 // Log validation error
                 logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `${null_fields_str}field cannot be null.` });
-                res.status(500).json({
+                res.status(400).json({
                     message: `${null_fields_str}field cannot be null.`,
                     data: {},
                 });
@@ -64,11 +64,19 @@ export async function createNewProduct(req, res) {
             else {
                 // Log validation error
                 logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `${null_fields_str}fields cannot be null.` });
-                res.status(500).json({
+                res.status(400).json({
                     message: `${null_fields_str}fields cannot be null.`,
                     data: {},
                 });
             }
+        }
+        else if (error.name == "SequelizeDatabaseError" && new RegExp("invalid input syntax for type").test(error.message) == true) {
+            // Log validation error
+            logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `Wrong datatype: ${error.message}` });
+            res.status(400).json({
+                message: `Wrong datatype: ${error.message}`,
+                data: {},
+            });
         }
         else {
             // Log error
@@ -136,7 +144,7 @@ export async function getProductById(req, res) {
             method_parameters: {message: "Product fetched successfully.", data: product}});
         }
         else {
-            res.status(500).json({
+            res.status(404).json({
                 message: "Could not find a product with that id.",
                 data: {},
             });
@@ -179,7 +187,7 @@ export async function deleteProductById(req, res) {
             method_parameters: {message: "Product deleted successfully.", data: product}});
         }
         else {
-            res.status(500).json({
+            res.status(404).json({
                 message: "Could not delete a product with that id.",
                 data: {},
             });
@@ -231,13 +239,13 @@ export async function updateAProduct(req, res) {
             // Log method call
             logger.log({ level: "debug", log_type: "method_call", verb: req.method, route: "/api/products"+req.path, method_name: "res.status(201).json()", 
             method_parameters: {message: "Product updated successfully.", data: product}});
-            return res.status(201).json({
+            return res.status(200).json({
                 message: "Product updated successfully.",
                 data: product,
             });
         }
         else {
-            res.status(500).json({
+            res.status(404).json({
                 message: "Could not update a product with that id.",
                 data: {},
             });
@@ -245,12 +253,53 @@ export async function updateAProduct(req, res) {
             logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products"+req.path, message: "Could not update a product with that id." });
         }
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Something went wrong while updating a product.",
-            data: {},
-        });
-        // Log error
-        logger.log({ level: "error", log_type: "error", verb: req.method, error_message: "Something went wrong while updating a product.", stack_trace: error.stack });
+        if (error.name == "SequelizeUniqueConstraintError" && error.message == "Validation error") {
+            // Log validation error
+            logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `"name" field must be unique.` });
+            res.status(400).json({
+                message: `"name" field must be unique.`,
+                data: {},
+            });
+        }
+        else if (error.name == "SequelizeValidationError" && error.message.split(":")[0] == "notNull Violation") {
+            let null_fields_str = "";
+            let null_fields_count = 0;
+            if (!name) {null_fields_str += `"name" `; null_fields_count += 1;}
+            if (!stock) {null_fields_str += `"stock" `; null_fields_count += 1;}
+            if (!require_id_to_sell) {null_fields_str += `"require_id_to_sell" `; null_fields_count += 1;}
+            
+            if(null_fields_count == 1){
+                // Log validation error
+                logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `${null_fields_str}field cannot be null.` });
+                res.status(400).json({
+                    message: `${null_fields_str}field cannot be null.`,
+                    data: {},
+                });
+            }
+            else {
+                // Log validation error
+                logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `${null_fields_str}fields cannot be null.` });
+                res.status(400).json({
+                    message: `${null_fields_str}fields cannot be null.`,
+                    data: {},
+                });
+            }
+        }
+        else if (error.name == "SequelizeDatabaseError" && new RegExp("invalid input syntax for type").test(error.message) == true) {
+            // Log validation error
+            logger.log({ level: "warn", log_type: "validation_error", verb: req.method, route: "/api/products/", message: `Wrong datatype: ${error.message}` });
+            res.status(400).json({
+                message: `Wrong datatype: ${error.message}`,
+                data: {},
+            });
+        }
+        else {
+            res.status(500).json({
+                message: "Something went wrong while updating a product.",
+                data: {},
+            });
+            // Log error
+            logger.log({ level: "error", log_type: "error", verb: req.method, error_message: "Something went wrong while updating a product.", stack_trace: error.stack });
+        }
     }
   }
