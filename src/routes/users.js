@@ -9,7 +9,7 @@ import { verifyMyActiveToken } from "../middleware/middleware";
 
 const router = Router();
 
-router.get("/login", userLogin);
+router.post("/login", userLogin);
 router.post("/signup", createNewUser);
 
 router.use(verifyMyActiveToken);

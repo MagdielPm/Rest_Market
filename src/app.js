@@ -1,5 +1,6 @@
 import express, { json } from "express";
 import morgan from "morgan";
+import cors from "cors";
 
 // Import all routes here below 👇🏽
 import employeerRoutes from "./routes/employees";
@@ -15,6 +16,7 @@ const app = express();
 // in the console because we use Morgan for that
 app.use(morgan("dev"));
 app.use(json());
+app.use(cors());
 
 //Put your routes here to listen in localhost:3000 👻
 // Remember, the endpoins have to be in plural
