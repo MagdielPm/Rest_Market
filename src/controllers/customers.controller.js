@@ -84,9 +84,9 @@ export async function createNewCustomer(req, res) {
 export async function getAllCustomers(req, res) {
     // Log HTTP request
     logger.log({ level: "info", log_type: "request_info", verb: req.method, route: "/api/customers/", query_parameters: req.query, headers: req.headers });
-    logger.log({ level: "debug", log_type: "request_debug", verb: req.method, route: "/api/customerss/", body: req.body });
+    logger.log({ level: "debug", log_type: "request_debug", verb: req.method, route: "/api/customers/", body: req.body });
     try {
-        const customers= await Costumer.findAll();
+        const customers= await Customer.findAll();
         // Log db query
         logger.log({ level: "debug", log_type: "query", verb: req.method, route: "/api/customers/", query: "SELECT * FROM customers" });
   
