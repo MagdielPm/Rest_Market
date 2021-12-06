@@ -3,7 +3,7 @@ COPY / /
 
 USER root
 RUN apt update
-RUN apt install -y wget
+RUN DEBIAN_FRONTEND=noninteractive apt install -y wget
 RUN apt install -y gnupg
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 RUN apt-get install apt-transport-https
