@@ -8,6 +8,7 @@ import customerRoutes from "./routes/customers";
 import foodRoutes from "./routes/foods";
 import productRoutes from "./routes/product";
 import usersRoutes from "./routes/users";
+import healthRoutes from "./routes/health";
 
 const app = express();
 
@@ -17,6 +18,8 @@ const app = express();
 app.use(morgan("dev"));
 app.use(json());
 app.use(cors());
+
+app.use("/api/health", healthRoutes);
 
 //Put your routes here to listen in localhost:3000 👻
 // Remember, the endpoins have to be in plural
