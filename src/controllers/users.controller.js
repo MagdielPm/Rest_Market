@@ -1,4 +1,5 @@
 import User from "../models/user";
+<<<<<<< Updated upstream
 import bcrypt from "bcrypt";
 import jwt from "jwt-simple";
 import moment from "moment";
@@ -257,3 +258,5 @@ const createToken = (user) => {
   };
   return jwt.encode(playload, TOKEN_KEY);
 };
+=======
+>>>>>>> Stashed changes

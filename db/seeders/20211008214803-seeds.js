@@ -184,6 +184,32 @@ module.exports = {
             "Tortilla, carne, cebolla morada, chile habanero, limon y salsas",
           foodPrice: "$40",
           foodExpiration: "16/10/2021",
+<<<<<<< Updated upstream
+=======
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
+
+    await queryInterface.bulkInsert(
+      "Users",
+      [
+        {
+          id: 1,
+          fullName: "Magdiel Pech",
+          email: "magdiel_joab@hotmail.com",
+          password: "tacos99",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: 2,
+          fullName: "Zeus Sarmiento",
+          email: "zeuz@hotmail.com",
+          password: "10101010",
+>>>>>>> Stashed changes
           createdAt: new Date(),
           updatedAt: new Date(),
         },
