@@ -130,10 +130,6 @@ module.exports = {
     await queryInterface.dropTable("Employees");
     await queryInterface.dropTable("Customers");
     await queryInterface.dropTable("Foods");
-<<<<<<< Updated upstream
     await queryInterface.dropTable("Users");
-=======
-    await queryInterface.drapTable("Users");
->>>>>>> Stashed changes
   },
 };
