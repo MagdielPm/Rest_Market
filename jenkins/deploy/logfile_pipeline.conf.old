@@ -1,0 +1,21 @@
+input {
+	file {
+		path => "/api.log"
+		start_position => "beginning"
+		id => "backend_input"
+		}
+	}
+
+filter {
+	mutate {
+		rename => {"host" => "hostname"}
+		}
+	}
+
+output {
+	elasticsearch {
+		hosts => "192.168.113.132:9200"
+		data_stream => "true"
+		id => "backend_output"
+		}
+	}
