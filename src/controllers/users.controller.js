@@ -45,7 +45,9 @@ export async function createNewUser(req, res) {
       log_type: "query",
       verb: req.method,
       route: "/api/employees/",
-      query: `INSERT INTO USERS (fullName, email, password) VALUES (${fullName}, ${OSQP(email)}, ${OSQP(encryptedPassword)})`,
+      query: `INSERT INTO USERS (fullName, email, password) VALUES (${fullName}, ${OSQP(
+        email
+      )}, ${OSQP(encryptedPassword)})`,
     });
     if (!!newUser) {
       logger.log({
@@ -156,55 +158,79 @@ export async function userLogin(req, res) {
   });
   const { email, password } = req.body;
   try {
+    if (email.length === 0) {
+      logger.log({
+        level: "debug",
+        log_type: "method_call",
+        verb: req.method,
+        route: "/api/users/",
+        method_name: "res.status(400).json()",
+        method_parameters: {
+          message: "Email empty",
+        },
+      });
+      return res.status(400).json({
+        messge: "Error invalid email, please enter a valid email",
+        data: {},
+      });
+    }
+
     const user = await User.findOne({
       where: {
         email: email,
       },
     });
 
+    if (user === null) {
+      logger.log({
+        level: "debug",
+        log_type: "method_call",
+        verb: req.method,
+        route: "/api/users/",
+        method_name: "res.status(404).json()",
+        method_parameters: {
+          message: "Error user not found",
+        },
+      });
+      return res.status(404).json({
+        message: "Error user not found",
+        data: { emal: email },
+      });
+    }
+
     if (!!user) {
       const areEquals = bcrypt.compareSync(password, user.password);
-      if(areEquals){
-        res.status(200).json({
-          message: "Login successfully",
-          fullName: user.fullName,
-          token: createToken(user),
-        });
+      if (!areEquals) {
         logger.log({
           level: "debug",
           log_type: "method_call",
           verb: req.method,
           route: "/api/users/",
-          method_name: "res.status(200).json()",
+          method_name: "res.status(401).json()",
           method_parameters: {
-            message: "Login successfully",
+            message: "Error invalid password",
           },
         });
-      }
-      else{
-        res.status(401).json({
-          message: "Password not correct, try again",
-          data: {},
-        });
-        logger.log({
-          level: "error",
-          log_type: "error",
-          verb: req.method,
-          error_message: "Password not correct, try again",
-          stack_trace: error.stack,
+        return res.status(401).json({
+          message: "Error invalid password",
+          emal: email,
         });
       }
-    } else {
-      logger.log({
-        level: "error",
-        log_type: "error",
-        verb: req.method,
-        error_message: "User not found, invalid credentials",
-        stack_trace: error.stack,
+
+      res.status(200).json({
+        message: "Login successfully",
+        fullName: user.fullName,
+        token: createToken(user),
       });
-      res.status(404).json({
-        message: "User not found, invalid credentials",
-        data: {},
+      logger.log({
+        level: "debug",
+        log_type: "method_call",
+        verb: req.method,
+        route: "/api/users/",
+        method_name: "res.status(200).json()",
+        method_parameters: {
+          message: "Login successfully",
+        },
       });
     }
   } catch (error) {
@@ -216,7 +242,7 @@ export async function userLogin(req, res) {
       error_message: "Something went wrong while fetching a user credentials",
       stack_trace: error.stack,
     });
-    res.status(500).json({
+    return res.status(500).json({
       message: "Something went wrong while fetching a user credentials",
       data: {},
     });

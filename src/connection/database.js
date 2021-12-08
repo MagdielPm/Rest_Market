@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 
-export const sequelize = new Sequelize("rest-market", "postgres", "postgres", {
-  host: "192.168.113.132",
+export const sequelize = new Sequelize("rest-market", "", "", {
+  host: "",
   dialect: "postgres",
   logging: false,
 });
